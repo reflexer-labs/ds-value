@@ -20,7 +20,7 @@ import "./value.sol";
 
 contract TestUser {
     function doPoke(DSValue value, bytes32 wut) public {
-        value.poke(wut);
+        value.updateResult(wut);
     }
 
     function doVoid(DSValue value) public {
@@ -39,31 +39,31 @@ contract DSValueTest is DSTest {
     }
 
     function testPoke() public {
-        value.poke(data);
+        value.updateResult(data);
     }
 
     function testFailPoke() public {
         user.doPoke(value, data);
     }
 
-    function testHas() public {
-        bytes32 wut; bool has;
-        (wut, has) = value.peek();
-        assertTrue(!has);
-        value.poke(data);
-        (wut, has) = value.peek();
-        assertTrue(has);
+    function testIsValid() public {
+        bytes32 wut; bool isValid;
+        (wut, isValid) = value.getResultWithValidity();
+        assertTrue(!isValid);
+        value.updateResult(data);
+        (wut, isValid) = value.getResultWithValidity();
+        assertTrue(isValid);
     }
 
-    function testPeek() public {
-        value.poke(data);
-        bytes32 wut; bool has;
-        (wut, has) = value.peek();
+    function testReadWithValidity() public {
+        value.updateResult(data);
+        bytes32 wut; bool isValid;
+        (wut, isValid) = value.getResultWithValidity();
         assertEq(data, wut);
     }
 
     function testRead() public {
-        value.poke(data);
+        value.updateResult(data);
         bytes32 wut = value.read();
         assertEq(data, wut);
     }
@@ -74,24 +74,24 @@ contract DSValueTest is DSTest {
     }
 
     function testFailUnsetRead() public {
-        value.poke(data);
+        value.updateResult(data);
         value.void();
         bytes32 wut = value.read();
         wut;
     }
 
     function testVoid() public {
-        value.poke(data);
-        bytes32 wut; bool has;
-        (wut, has) = value.peek();
-        assertTrue(has);
+        value.updateResult(data);
+        bytes32 wut; bool isValid;
+        (wut, isValid) = value.getResultWithValidity();
+        assertTrue(isValid);
         value.void();
-        (wut, has) = value.peek();
-        assertTrue(!has);
+        (wut, isValid) = value.getResultWithValidity();
+        assertTrue(!isValid);
     }
 
     function testFailVoid() public {
-        value.poke(data);
+        value.updateResult(data);
         user.doVoid(value);
     }
 }

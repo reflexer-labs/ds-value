@@ -20,22 +20,22 @@ pragma solidity >=0.4.23;
 import 'ds-thing/thing.sol';
 
 contract DSValue is DSThing {
-    bool    has;
-    bytes32 val;
-    function peek() public view returns (bytes32, bool) {
-        return (val,has);
+    bool    isValid;
+    bytes32 result;
+    function getResultWithValidity() public view returns (bytes32, bool) {
+        return (result,isValid);
     }
     function read() public view returns (bytes32) {
         bytes32 wut; bool haz;
-        (wut, haz) = peek();
+        (wut, haz) = getResultWithValidity();
         require(haz, "haz-not");
         return wut;
     }
-    function poke(bytes32 wut) public note auth {
-        val = wut;
-        has = true;
+    function updateResult(bytes32 wut) public note auth {
+        result = wut;
+        isValid = true;
     }
     function void() public note auth {  // unset the value
-        has = false;
+        isValid = false;
     }
 }
