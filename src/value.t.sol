@@ -23,8 +23,8 @@ contract TestUser {
         value.updateResult(wut);
     }
 
-    function doVoid(DSValue value) public {
-        value.void();
+    function doRestartValue(DSValue value) public {
+        value.restartValue();
     }
 }
 
@@ -75,7 +75,7 @@ contract DSValueTest is DSTest {
 
     function testFailUnsetRead() public {
         value.updateResult(data);
-        value.void();
+        value.restartValue();
         bytes32 wut = value.read();
         wut;
     }
@@ -85,13 +85,13 @@ contract DSValueTest is DSTest {
         bytes32 wut; bool isValid;
         (wut, isValid) = value.getResultWithValidity();
         assertTrue(isValid);
-        value.void();
+        value.restartValue();
         (wut, isValid) = value.getResultWithValidity();
         assertTrue(!isValid);
     }
 
     function testFailVoid() public {
         value.updateResult(data);
-        user.doVoid(value);
+        user.doRestartValue(value);
     }
 }

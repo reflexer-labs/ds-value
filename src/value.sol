@@ -35,7 +35,7 @@ contract DSValue is DSThing {
         result = wut;
         isValid = true;
     }
-    function void() public note auth {  // unset the value
+    function restartValue() public note auth {  // unset the value
         isValid = false;
     }
 }

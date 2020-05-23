@@ -5,20 +5,20 @@
 </h2>
 
 _Set and get a value_
-  
+
 Authorized users can set and unset a value. Anyone can read the value.
 
 ### Actions
 
-#### `peek`
+#### `getResultWithValidity`
 return the stored value along with boolean `true` if the value is set and false
 if not
 
 #### `read`
 return either the stored value or an exception if not set
 
-#### `poke`
+#### `updateResult`
 set the value (requires auth)
 
-#### `void`
+#### `restartValue`
 unset the value (requires auth)
