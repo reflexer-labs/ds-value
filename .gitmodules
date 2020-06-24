@@ -3,4 +3,4 @@
 	url = https://github.com/dapphub/ds-test
 [submodule "lib/ds-thing"]
 	path = lib/ds-thing
-	url = https://github.com/dapphub/ds-thing
+	url = https://github.com/reflexer-labs/ds-thing.git

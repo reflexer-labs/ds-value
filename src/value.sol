@@ -21,18 +21,18 @@ import 'ds-thing/thing.sol';
 
 contract DSValue is DSThing {
     bool    isValid;
-    bytes32 result;
+    bytes32 medianPrice;
     function getResultWithValidity() public view returns (bytes32, bool) {
-        return (result,isValid);
+        return (medianPrice,isValid);
     }
     function read() public view returns (bytes32) {
-        bytes32 wut; bool haz;
-        (wut, haz) = getResultWithValidity();
-        require(haz, "haz-not");
-        return wut;
+        bytes32 value; bool valid;
+        (value, valid) = getResultWithValidity();
+        require(valid, "not-valid");
+        return value;
     }
-    function updateResult(bytes32 wut) public note auth {
-        result = wut;
+    function updateResult(bytes32 newMedian) public note auth {
+        medianPrice = newMedian;
         isValid = true;
     }
     function restartValue() public note auth {  // unset the value

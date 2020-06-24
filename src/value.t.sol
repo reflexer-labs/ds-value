@@ -19,7 +19,7 @@ import "ds-test/test.sol";
 import "./value.sol";
 
 contract TestUser {
-    function doPoke(DSValue value, bytes32 wut) public {
+    function doUpdateResult(DSValue value, bytes32 wut) public {
         value.updateResult(wut);
     }
 
@@ -38,12 +38,12 @@ contract DSValueTest is DSTest {
         user = new TestUser();
     }
 
-    function testPoke() public {
+    function testUpdateResult() public {
         value.updateResult(data);
     }
 
-    function testFailPoke() public {
-        user.doPoke(value, data);
+    function testFailUpdateResult() public {
+        user.doUpdateResult(value, data);
     }
 
     function testIsValid() public {
