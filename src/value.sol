@@ -22,6 +22,11 @@ import 'ds-thing/thing.sol';
 contract DSValue is DSThing {
     bool    isValid;
     bytes32 medianPrice;
+
+    // --- Events ---
+    event UpdateResult(bytes32 newMedian);
+    event RestartValue();
+
     function getResultWithValidity() public view returns (bytes32, bool) {
         return (medianPrice,isValid);
     }
@@ -31,11 +36,13 @@ contract DSValue is DSThing {
         require(valid, "not-valid");
         return value;
     }
-    function updateResult(bytes32 newMedian) public note auth {
+    function updateResult(bytes32 newMedian) public auth {
         medianPrice = newMedian;
         isValid = true;
+        emit UpdateResult(newMedian);
     }
-    function restartValue() public note auth {  // unset the value
+    function restartValue() public auth {  // unset the value
         isValid = false;
+        emit RestartValue();
     }
 }
