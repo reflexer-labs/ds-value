@@ -19,7 +19,7 @@ import "ds-test/test.sol";
 import "./value.sol";
 
 contract TestUser {
-    function doUpdateResult(DSValue value, bytes32 wut) public {
+    function doUpdateResult(DSValue value, uint wut) public {
         value.updateResult(wut);
     }
 
@@ -30,7 +30,7 @@ contract TestUser {
 
 contract DSValueTest is DSTest {
     DSValue value;
-    bytes32 data = bytes32("test");
+    uint data = uint(bytes32("test"));
     TestUser user;
 
     function setUp() public {
@@ -47,7 +47,7 @@ contract DSValueTest is DSTest {
     }
 
     function testIsValid() public {
-        bytes32 wut; bool isValid;
+        uint wut; bool isValid;
         (wut, isValid) = value.getResultWithValidity();
         assertTrue(!isValid);
         value.updateResult(data);
@@ -57,32 +57,32 @@ contract DSValueTest is DSTest {
 
     function testReadWithValidity() public {
         value.updateResult(data);
-        bytes32 wut; bool isValid;
+        uint wut; bool isValid;
         (wut, isValid) = value.getResultWithValidity();
         assertEq(data, wut);
     }
 
     function testRead() public {
         value.updateResult(data);
-        bytes32 wut = value.read();
+        uint wut = value.read();
         assertEq(data, wut);
     }
 
     function testFailUninitializedRead() public view {
-        bytes32 wut = value.read();
+        uint wut = value.read();
         wut;
     }
 
     function testFailUnsetRead() public {
         value.updateResult(data);
         value.restartValue();
-        bytes32 wut = value.read();
+        uint wut = value.read();
         wut;
     }
 
     function testVoid() public {
         value.updateResult(data);
-        bytes32 wut; bool isValid;
+        uint wut; bool isValid;
         (wut, isValid) = value.getResultWithValidity();
         assertTrue(isValid);
         value.restartValue();
