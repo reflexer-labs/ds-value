@@ -22,6 +22,7 @@ import 'ds-thing/thing.sol';
 contract DSValue is DSThing {
     bool    isValid;
     uint256 medianPrice;
+    address public priceSource;
 
     // --- Events ---
     event UpdateResult(uint256 newMedian, uint256 lastUpdateTime);
